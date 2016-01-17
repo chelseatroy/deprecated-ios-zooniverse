@@ -24,6 +24,8 @@ class MasterViewController: UITableViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
+        data_request()
+        
         // Do any additional setup after loading the view, typically from a nib.
         self.navigationItem.leftBarButtonItem = self.editButtonItem()
 
@@ -34,6 +36,34 @@ class MasterViewController: UITableViewController {
             self.detailViewController = controllers[controllers.count-1].topViewController as? DetailViewController
         }
     }
+    
+    
+    //UGHHHHHHH
+    func data_request() {
+        let url:NSURL = NSURL(string: "http://localhost:8080/projects")!
+        let session = NSURLSession.sharedSession()
+        
+        let request = NSMutableURLRequest(URL: url)
+        request.HTTPMethod = "GET"
+        
+        //let paramString = "data=Hello"
+        //request.HTTPBody = paramString.dataUsingEncoding(NSUTF8StringEncoding)
+        
+        let task = session.dataTaskWithRequest(request) {
+            (let data, let response, let error) in
+            
+            let dataString = NSString(data: data!, encoding: NSUTF8StringEncoding)
+
+            print(dataString)
+            print(" ")
+            print(response)
+        }
+        
+        task.resume()
+    }
+    ///eeeeeegh
+    
+
 
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
