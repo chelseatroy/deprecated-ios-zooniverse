@@ -14,6 +14,7 @@
 		AE124D4D1C3E169500EDB3CC /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = AE124D4C1C3E169500EDB3CC /* Images.xcassets */; };
 		AE124D501C3E169500EDB3CC /* LaunchScreen.xib in Resources */ = {isa = PBXBuildFile; fileRef = AE124D4E1C3E169500EDB3CC /* LaunchScreen.xib */; };
 		AE124D5C1C3E169500EDB3CC /* ios_zooniverseTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = AE124D5B1C3E169500EDB3CC /* ios_zooniverseTests.swift */; };
+		AE2F79111C4C7A23006734A1 /* Project.swift in Sources */ = {isa = PBXBuildFile; fileRef = AE2F79101C4C7A22006734A1 /* Project.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -38,6 +39,7 @@
 		AE124D551C3E169500EDB3CC /* ios-zooniverseTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "ios-zooniverseTests.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
 		AE124D5A1C3E169500EDB3CC /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		AE124D5B1C3E169500EDB3CC /* ios_zooniverseTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ios_zooniverseTests.swift; sourceTree = "<group>"; };
+		AE2F79101C4C7A22006734A1 /* Project.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Project.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -86,6 +88,7 @@
 				AE124D4C1C3E169500EDB3CC /* Images.xcassets */,
 				AE124D4E1C3E169500EDB3CC /* LaunchScreen.xib */,
 				AE124D411C3E169500EDB3CC /* Supporting Files */,
+				AE2F79101C4C7A22006734A1 /* Project.swift */,
 			);
 			path = "ios-zooniverse";
 			sourceTree = "<group>";
@@ -218,6 +221,7 @@
 				AE124D481C3E169500EDB3CC /* DetailViewController.swift in Sources */,
 				AE124D461C3E169500EDB3CC /* MasterViewController.swift in Sources */,
 				AE124D441C3E169500EDB3CC /* AppDelegate.swift in Sources */,
+				AE2F79111C4C7A23006734A1 /* Project.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -411,6 +415,7 @@
 				AE124D611C3E169500EDB3CC /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		AE124D621C3E169500EDB3CC /* Build configuration list for PBXNativeTarget "ios-zooniverseTests" */ = {
 			isa = XCConfigurationList;
@@ -419,6 +424,7 @@
 				AE124D641C3E169500EDB3CC /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};

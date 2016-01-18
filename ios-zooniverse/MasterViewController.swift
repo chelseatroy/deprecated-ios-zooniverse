@@ -38,7 +38,7 @@ class MasterViewController: UITableViewController {
     }
     
     
-    //UGHHHHHHH
+    //This method makes the http request
     func data_request() {
         let url:NSURL = NSURL(string: "http://localhost:8080/projects")!
         let session = NSURLSession.sharedSession()
@@ -46,17 +46,26 @@ class MasterViewController: UITableViewController {
         let request = NSMutableURLRequest(URL: url)
         request.HTTPMethod = "GET"
         
+        //this is how you would add query params or request body to your request
         //let paramString = "data=Hello"
         //request.HTTPBody = paramString.dataUsingEncoding(NSUTF8StringEncoding)
         
         let task = session.dataTaskWithRequest(request) {
             (let data, let response, let error) in
             
+            //stringified json in the response. You could print this to see it al as a string.
             let dataString = NSString(data: data!, encoding: NSUTF8StringEncoding)
 
-            print(dataString)
-            print(" ")
-            print(response)
+            if let json: NSDictionary = NSJSONSerialization.JSONObjectWithData(data!, options: NSJSONReadingOptions.MutableContainers, error: nil) as? NSDictionary {
+                if let items = json["projects"] as? NSArray {
+                    for item in items {
+                        // construct your model objects here
+                        println(item["description"])
+                        
+                    }
+                }
+            }
+            
         }
         
         task.resume()
