@@ -33,7 +33,7 @@ class MasterViewController: UITableViewController {
         self.navigationItem.rightBarButtonItem = addButton
         if let split = self.splitViewController {
             let controllers = split.viewControllers
-            self.detailViewController = controllers[controllers.count-1].topViewController as? DetailViewController
+            //self.detailViewController = controllers[controllers.count-1].topViewController as? DetailViewController
         }
     }
     
@@ -56,12 +56,12 @@ class MasterViewController: UITableViewController {
             //stringified json in the response. You could print this to see it al as a string.
             let dataString = NSString(data: data!, encoding: NSUTF8StringEncoding)
 
-            if let json: NSDictionary = NSJSONSerialization.JSONObjectWithData(data!, options: NSJSONReadingOptions.MutableContainers, error: nil) as? NSDictionary {
+            if let json: NSDictionary = try! NSJSONSerialization.JSONObjectWithData(data!, options: NSJSONReadingOptions.MutableContainers) as? NSDictionary {
                 if let items = json["projects"] as? NSArray {
                     for item in items {
                         // construct your model objects here
-                        println(item["description"])
-                        let project = Project(json: item as NSDictionary)
+                        print(item["description"])
+                        let project = Project(json: item as! NSDictionary)
                         //self.objects.addObject(project)
                         
                         self.insertNewObject(project)
@@ -92,13 +92,13 @@ class MasterViewController: UITableViewController {
 
     override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
         if segue.identifier == "showDetail" {
-            if let indexPath = self.tableView.indexPathForSelectedRow() {
-                let object = objects[indexPath.row] as Project
-                let controller = (segue.destinationViewController as UINavigationController).topViewController as DetailViewController
+                let indexPath = self.tableView.indexPathForSelectedRow! 
+                let object = objects[indexPath.row] as! Project
+                let controller = (segue.destinationViewController as! UINavigationController).topViewController as! DetailViewController
                 controller.detailItem = object
                 controller.navigationItem.leftBarButtonItem = self.splitViewController?.displayModeButtonItem()
                 controller.navigationItem.leftItemsSupplementBackButton = true
-            }
+            
         }
     }
 
@@ -115,7 +115,7 @@ class MasterViewController: UITableViewController {
     override func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCellWithIdentifier("Cell", forIndexPath: indexPath) as UITableViewCell
 
-        let object = objects[indexPath.row] as Project
+        let object = objects[indexPath.row] as! Project
         cell.textLabel!.text = object.title
         return cell
     }

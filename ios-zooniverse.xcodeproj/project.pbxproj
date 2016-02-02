@@ -162,6 +162,7 @@
 		AE124D361C3E169500EDB3CC /* Project object */ = {
 			isa = PBXProject;
 			attributes = {
+				LastSwiftUpdateCheck = 0720;
 				LastUpgradeCheck = 0610;
 				ORGANIZATIONNAME = Pivotal;
 				TargetAttributes = {
