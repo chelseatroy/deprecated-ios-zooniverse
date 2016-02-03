@@ -10,6 +10,7 @@ import UIKit
 
 class MasterViewController: UITableViewController {
 
+    @IBOutlet weak var activityIndicatorView: UIActivityIndicatorView!
     var detailViewController: DetailViewController? = nil
     var objects = NSMutableArray()
 
@@ -40,6 +41,8 @@ class MasterViewController: UITableViewController {
     
     //This method makes the http request
     func data_request() {
+        activityIndicatorView.startAnimating()
+        
         let url:NSURL = NSURL(string: "http://localhost:8080/projects")!
         let session = NSURLSession.sharedSession()
         
@@ -58,6 +61,7 @@ class MasterViewController: UITableViewController {
 
             if let json: NSDictionary = try! NSJSONSerialization.JSONObjectWithData(data!, options: NSJSONReadingOptions.MutableContainers) as? NSDictionary {
                 if let items = json["projects"] as? NSArray {
+                    self.activityIndicatorView.stopAnimating()
                     for item in items {
                         // construct your model objects here
                         print(item["description"])
