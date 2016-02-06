@@ -10,10 +10,10 @@ import UIKit
 
 class MasterViewController: UITableViewController {
 
-    @IBOutlet weak var activityIndicatorView: UIActivityIndicatorView!
+    var activityIndicatorView: UIActivityIndicatorView = UIActivityIndicatorView()
     var detailViewController: DetailViewController? = nil
     var objects = NSMutableArray()
-
+    var indicator = UIActivityIndicatorView()
 
     override func awakeFromNib() {
         super.awakeFromNib()
@@ -25,6 +25,12 @@ class MasterViewController: UITableViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
+
+            self.indicator = UIActivityIndicatorView(frame: CGRectMake(0, 0, 40, 40))
+            self.indicator.activityIndicatorViewStyle = UIActivityIndicatorViewStyle.Gray
+            self.indicator.center = self.view.center
+            self.view.addSubview(indicator)
+        
         data_request()
         
         // Do any additional setup after loading the view, typically from a nib.
@@ -41,7 +47,8 @@ class MasterViewController: UITableViewController {
     
     //This method makes the http request
     func data_request() {
-        activityIndicatorView.startAnimating()
+        self.indicator.startAnimating()
+        self.indicator.backgroundColor = UIColor.whiteColor()
         
         let url:NSURL = NSURL(string: "http://localhost:8080/projects")!
         let session = NSURLSession.sharedSession()
@@ -56,12 +63,15 @@ class MasterViewController: UITableViewController {
         let task = session.dataTaskWithRequest(request) {
             (let data, let response, let error) in
             
+            self.indicator.stopAnimating()
+            self.indicator.hidesWhenStopped = true
+            
             //stringified json in the response. You could print this to see it al as a string.
             let dataString = NSString(data: data!, encoding: NSUTF8StringEncoding)
 
             if let json: NSDictionary = try! NSJSONSerialization.JSONObjectWithData(data!, options: NSJSONReadingOptions.MutableContainers) as? NSDictionary {
                 if let items = json["projects"] as? NSArray {
-                    self.activityIndicatorView.stopAnimating()
+                    
                     for item in items {
                         // construct your model objects here
                         print(item["description"])
@@ -77,8 +87,6 @@ class MasterViewController: UITableViewController {
         
         task.resume()
     }
-    ///eeeeeegh
-    
 
 
     override func didReceiveMemoryWarning() {
