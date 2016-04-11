@@ -1,17 +1,8 @@
-//
-//  MasterViewController.swift
-//  ios-zooniverse
-//
-//  Created by Pivotal on 2016-01-06.
-//  Copyright (c) 2016 Pivotal. All rights reserved.
-//
-
 import UIKit
 
 class MasterViewController: UITableViewController {
 
     var activityIndicatorView: UIActivityIndicatorView = UIActivityIndicatorView()
-    var detailViewController: DetailViewController? = nil
     var objects = NSMutableArray()
     var indicator = UIActivityIndicatorView()
 
@@ -66,7 +57,7 @@ class MasterViewController: UITableViewController {
             self.indicator.stopAnimating()
             self.indicator.hidesWhenStopped = true
             
-            //stringified json in the response. You could print this to see it al as a string.
+            //stringified json in the response. You could print this to see it all as a string.
             let dataString = NSString(data: data!, encoding: NSUTF8StringEncoding)
 
             if let json: NSDictionary = try! NSJSONSerialization.JSONObjectWithData(data!, options: NSJSONReadingOptions.MutableContainers) as? NSDictionary {
@@ -98,20 +89,6 @@ class MasterViewController: UITableViewController {
         objects.insertObject(sender, atIndex: 0)
         let indexPath = NSIndexPath(forRow: 0, inSection: 0)
         self.tableView.insertRowsAtIndexPaths([indexPath], withRowAnimation: .Automatic)
-    }
-
-    // MARK: - Segues
-
-    override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
-        if segue.identifier == "showDetail" {
-                let indexPath = self.tableView.indexPathForSelectedRow! 
-                let object = objects[indexPath.row] as! Project
-                let controller = (segue.destinationViewController as! UINavigationController).topViewController as! DetailViewController
-                controller.detailItem = object
-                controller.navigationItem.leftBarButtonItem = self.splitViewController?.displayModeButtonItem()
-                controller.navigationItem.leftItemsSupplementBackButton = true
-            
-        }
     }
 
     // MARK: - Table View
