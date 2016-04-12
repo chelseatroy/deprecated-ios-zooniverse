@@ -54,22 +54,23 @@ class MasterViewController: UITableViewController {
         let task = session.dataTaskWithRequest(request) {
             (let data, let response, let error) in
             
-            self.indicator.stopAnimating()
-            self.indicator.hidesWhenStopped = true
-            
-            //stringified json in the response. You could print this to see it all as a string.
-            let dataString = NSString(data: data!, encoding: NSUTF8StringEncoding)
-
-            if let json: NSDictionary = try! NSJSONSerialization.JSONObjectWithData(data!, options: NSJSONReadingOptions.MutableContainers) as? NSDictionary {
-                if let items = json["projects"] as? NSArray {
-                    
-                    for item in items {
-                        // construct your model objects here
-                        print(item["description"])
-                        let project = Project(json: item as! NSDictionary)
-                        //self.objects.addObject(project)
+            NSOperationQueue.mainQueue().addOperationWithBlock {
+                self.indicator.stopAnimating()
+                self.indicator.hidesWhenStopped = true
+                //stringified json in the response. You could print this to see it all as a string.
+                //let dataString = NSString(data: data!, encoding: NSUTF8StringEncoding)
+                
+                if let json: NSDictionary = try! NSJSONSerialization.JSONObjectWithData(data!, options: NSJSONReadingOptions.MutableContainers) as? NSDictionary {
+                    if let items = json["projects"] as? NSArray {
                         
-                        self.insertNewObject(project)
+                        for item in items {
+                            // construct your model objects here
+                            print(item["description"])
+                            let project = Project(json: item as! NSDictionary)
+                            //self.objects.addObject(project)
+                            
+                            self.insertNewObject(project)
+                        }
                     }
                 }
             }
