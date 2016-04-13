@@ -16,8 +16,14 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UISplitViewControllerDele
 
     func application(application: UIApplication, didFinishLaunchingWithOptions launchOptions: [NSObject: AnyObject]?) -> Bool {
         // Override point for customization after application launch.
-        let splitViewController = self.window!.rootViewController as! UISplitViewController
-        splitViewController.delegate = self
+        //let splitViewController = self.window!.rootViewController as! UISplitViewController
+        //splitViewController.delegate = self
+        
+        let window = UIWindow(frame: UIScreen.mainScreen().bounds)
+        self.window = window
+        window.rootViewController = MasterViewController()
+        window.makeKeyAndVisible()
+        
         return true
     }
 
