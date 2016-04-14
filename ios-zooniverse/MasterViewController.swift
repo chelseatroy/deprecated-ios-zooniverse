@@ -10,11 +10,18 @@ class MasterViewController: UIViewController, UITableViewDelegate, UITableViewDa
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        tableView.frame         =   CGRectMake(0, 20, 420, 700);
+        tableView.frame         =   CGRect.zero;
         tableView.delegate      =   self
         tableView.dataSource    =   self
         tableView.registerClass(UITableViewCell.self, forCellReuseIdentifier: "Cell")
         self.view.addSubview(tableView)
+        
+        tableView.translatesAutoresizingMaskIntoConstraints = false
+        let viewsDictionary = ["table": tableView]
+        view.addConstraints(NSLayoutConstraint.constraintsWithVisualFormat(
+            "H:|-0-[table]-0-|", options: [], metrics: nil, views: viewsDictionary))
+        view.addConstraints(NSLayoutConstraint.constraintsWithVisualFormat(
+            "V:|-0-[table]-0-|", options: [], metrics: nil, views: viewsDictionary))
         
         self.indicator = UIActivityIndicatorView(frame: CGRectMake(0, 0, 40, 40))
         self.indicator.activityIndicatorViewStyle = UIActivityIndicatorViewStyle.Gray
